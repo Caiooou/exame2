@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>BBB - Comprar e vender - Cadastro de {{titulo}}</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h4>Cadastro de {{titulo}}</h4>
+        </div>
+            <form action="/anuncio/criar" method="post">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome">
+                </div>
+                <div class="form-group">
+                    <label for="desc">Desc</label>
+                    <textarea class="form-control" rows="4" cols="50" id="desc" name="desc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="qtd">Quantidade</label>
+                    <input type="text" class="form-control" id="qtd" name="qtd">
+                </div>
+                <div class="form-group">
+                    <label for="preco">Preco</label>
+                    <input type="text" class="form-control" id="preco" name="preco">
+                </div>
+                <div class="form-group">
+                    <label for="cat">Categoria</label>
+                    <select class="form-select" id="cat" name="cat">
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="usu">Usuario</label>
+                    <input type="text" class="form-control" id="uso" name="uso">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" value="Cadastrar">Cadastrar</button>
+                </div>
+            </form>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h4>Lista de {{titulo}}</h4>
+        </div>
+                <table class="table table-striped table-responsive table-bordered">
+                    <thead class="thread-default">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Desc</th>
+                            <th>Qtd</th>
+                            <th>Preco</th>
+                            <th>Categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for anuncio in anuncios %}
+                            <tr>
+                                <td>{{ anuncio.nome }}</td>
+                                <td>{{ anuncio.desc }}</td>
+                                <td>{{ anuncio.qtd }}</td>
+                                <td>{{ anuncio.preco }}</td>
+                                <td>{{ anuncio.cat_id }}</td>
+                                <td><a href={{url_for("pergunta",id=anuncio.id) }}>Pergunta?</a></td>
+                                <td><a href={{url_for("favorito",id=anuncio.id) }}>Favorito</a></td>
+                                <td><a href={{url_for("compra",id=anuncio.id) }}>Comprar</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+    </div>
+</body>
+
+</html>
+
